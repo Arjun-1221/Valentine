@@ -37,7 +37,7 @@
 </head>
 <body class="gradient-background">
 
-  <!-- Audio element, set to preload and muted initially -->
+  <!-- Audio element, muted initially for control -->
   <audio id="music" src="https://github.com/Arjun-1221/Valentine/main/Bujji%20Thalli.mp3" preload="auto" muted></audio>
   
   <div class="flex items-center justify-center h-screen">
@@ -64,6 +64,7 @@
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
     const responseButtons = document.getElementById('responseButtons');
+    const music = document.getElementById('music');  // Get the audio element
   
     let noClickCount = 0;
     let buttonHeight = 48; // Starting height in pixels
@@ -79,14 +80,23 @@
       "./images/image7.gif"
     ];
 
-    // Play audio immediately after page load or first interaction
-    window.onload = () => {
-      const music = document.getElementById('music');
-      music.muted = false;  // Unmute
-      music.play();  // Play the audio
+    // Function to play audio
+    function playAudio() {
+      music.muted = false;  // Unmute the audio
+      music.play();         // Play the audio
     }
 
+    // Play audio when either button is clicked
+    yesButton.addEventListener('click', () => {
+      playAudio();  // Play audio on "Yes" button click
+      imageDisplay.src = './images/image7.gif'; // Change to image7.gif
+      valentineQuestion.textContent = "Yayyyy! You clicked YES? Great, my mom already likes you. 😂"; // Change the question text
+      responseButtons.style.display = 'none'; // Hide both buttons
+      confetti(); // Trigger confetti animation
+    });
+
     noButton.addEventListener('click', function() {
+      playAudio();  // Play audio on "No" button click
       if (noClickCount < 5) {
         noClickCount++;
         imageDisplay.src = imagePaths[noClickCount];
@@ -100,13 +110,6 @@
           noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
         }
       }
-    });
-  
-    yesButton.addEventListener('click', () => {
-      imageDisplay.src = './images/image7.gif'; // Change to image7.gif
-      valentineQuestion.textContent = "Yayyyy! You clicked YES? Great, my mom already likes you. 😂"; // Change the question text
-      responseButtons.style.display = 'none'; // Hide both buttons
-      confetti(); // Trigger confetti animation
     });
   </script>  
 </body>

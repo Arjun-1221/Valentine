@@ -37,7 +37,8 @@
 </head>
 <body class="gradient-background">
 
-  <audio id="music" src="https://github.com/Arjun-1221/Valentine/main/Bujji%20Thalli.mp3" preload="auto"></audio>
+  <!-- Audio element, set to preload and muted initially -->
+  <audio id="music" src="https://github.com/Arjun-1221/Valentine/main/Bujji%20Thalli.mp3" preload="auto" muted></audio>
   
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
@@ -77,7 +78,14 @@
       "./images/image6.gif",
       "./images/image7.gif"
     ];
-  
+
+    // Play audio immediately after page load or first interaction
+    window.onload = () => {
+      const music = document.getElementById('music');
+      music.muted = false;  // Unmute
+      music.play();  // Play the audio
+    }
+
     noButton.addEventListener('click', function() {
       if (noClickCount < 5) {
         noClickCount++;
